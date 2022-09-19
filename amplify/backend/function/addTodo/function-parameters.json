@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "storage": {
+      "Todog2brcplterb45clsd2ohm52rzudev": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

@@ -46,37 +46,40 @@ exports.__esModule = true;
 exports.handler = void 0;
 var client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
 var lib_dynamodb_1 = require("@aws-sdk/lib-dynamodb");
-var docClient = new client_dynamodb_1.DynamoDBClient({
+// const marshallOptions = {
+//   convertClassInstanceToMap: true
+// }
+var dbClient = new client_dynamodb_1.DynamoDBClient({
     region: process.env.REGION
 });
-var documentClient = lib_dynamodb_1.DynamoDBDocumentClient.from(docClient);
+var docClient = lib_dynamodb_1.DynamoDBDocumentClient.from(dbClient);
 var handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
     var command, client, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(event);
-                console.log(event.arguments.todo);
-                console.log(event.arguments);
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
+                _a.trys.push([0, 2, , 3]);
                 command = new lib_dynamodb_1.PutCommand({
                     TableName: 'Todo-g2brcplterb45clsd2ohm52rzu-dev',
                     Item: {
+                        id: event.id,
                         name: event.arguments.todo.name,
-                        description: event.arguments.todo.description
+                        description: event.arguments.todo.description,
+                        createdAt: event.createdAt,
+                        updatedAt: event.updatedAt
                     }
                 });
-                return [4 /*yield*/, documentClient.send(command)];
-            case 2:
+                return [4 /*yield*/, docClient.send(command)];
+            case 1:
                 client = _a.sent();
-                return [2 /*return*/, client];
-            case 3:
+                return [2 /*return*/, {
+                        statuscode: client.$metadata.httpStatusCode
+                    }];
+            case 2:
                 err_1 = _a.sent();
                 console.log(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

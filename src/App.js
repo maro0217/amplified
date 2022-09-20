@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
 import { addTodo } from './graphql/mutations'
-import { getTodoLists } from './graphql/queries'
+import { getTodoLists, listTodos } from './graphql/queries'
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -29,7 +29,9 @@ const App = ({ signOut, user }) => {
       const todos = todoData.data.getTodoLists
       console.log(todos)
       setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+    } catch (err) {
+       console.log(err)
+    }
   }
 
   async function createTodo() {

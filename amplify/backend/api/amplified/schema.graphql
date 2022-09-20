@@ -8,18 +8,29 @@ type Todo @model {
   description: String
 }
 
+type Todos {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
 input TodoInput {
-  id: ID
   name: String!
   description: String
 }
 
+type CreateResult {
+  statuscode: Int
+}
+
 type Query {
-  getTodoLists: [Todo!] @function(name: "getTodoLists-${env}")
+  getTodoLists: [Todos] @function(name: "getTodoLists-${env}")
 }
 
 type Mutation {
-  addTodo(todo: TodoInput): String @function(name: "addTodo-${env}") 
+  addTodo(todo: TodoInput): CreateResult @function(name: "addTodo-${env}") 
 }
 
 

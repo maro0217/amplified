@@ -24,11 +24,11 @@
       "function": {
         "getTodoLists": {
           "deploymentBucketName": "amplify-amplified-dev-110218-deployment",
-          "s3Key": "amplify-builds/getTodoLists-796e3544694337345966-build.zip"
+          "s3Key": "amplify-builds/getTodoLists-7344794d5a4249576e4a-build.zip"
         },
         "addTodo": {
           "deploymentBucketName": "amplify-amplified-dev-110218-deployment",
-          "s3Key": "amplify-builds/addTodo-626b3556584f6c2f6863-build.zip"
+          "s3Key": "amplify-builds/addTodo-367a743667366f4e5955-build.zip"
         }
       },
       "storage": {

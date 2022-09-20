@@ -3,9 +3,13 @@
 //  This file was automatically generated and should not be edited.
 
 export type TodoInput = {
-  id?: string | null,
   name: string,
   description?: string | null,
+};
+
+export type CreateResult = {
+  __typename: "CreateResult",
+  statuscode?: number | null,
 };
 
 export type CreateTodoInput = {
@@ -81,6 +85,15 @@ export type DeleteTodoInput = {
   id: string,
 };
 
+export type Todos = {
+  __typename: "Todos",
+  id: string,
+  name: string,
+  description?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
+
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -117,7 +130,10 @@ export type AddTodoMutationVariables = {
 };
 
 export type AddTodoMutation = {
-  addTodo?: string | null,
+  addTodo?:  {
+    __typename: "CreateResult",
+    statuscode?: number | null,
+  } | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -170,13 +186,13 @@ export type DeleteTodoMutation = {
 
 export type GetTodoListsQuery = {
   getTodoLists?:  Array< {
-    __typename: "Todo",
+    __typename: "Todos",
     id: string,
     name: string,
     description?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } > | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
+  } | null > | null,
 };
 
 export type GetTodoQueryVariables = {

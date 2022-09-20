@@ -46,10 +46,10 @@ exports.__esModule = true;
 exports.handler = void 0;
 var client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
 var lib_dynamodb_1 = require("@aws-sdk/lib-dynamodb");
-var docClient = new client_dynamodb_1.DynamoDBClient({
+var dbClient = new client_dynamodb_1.DynamoDBClient({
     region: process.env.REGION
 });
-var documentClient = lib_dynamodb_1.DynamoDBDocumentClient.from(docClient);
+var docClient = lib_dynamodb_1.DynamoDBDocumentClient.from(dbClient);
 var handler = function () { return __awaiter(void 0, void 0, void 0, function () {
     var command, client, err_1;
     return __generator(this, function (_a) {
@@ -59,7 +59,7 @@ var handler = function () { return __awaiter(void 0, void 0, void 0, function ()
                 command = new lib_dynamodb_1.ScanCommand({
                     TableName: 'Todo-g2brcplterb45clsd2ohm52rzu-dev'
                 });
-                return [4 /*yield*/, documentClient.send(command)];
+                return [4 /*yield*/, docClient.send(command)];
             case 1:
                 client = _a.sent();
                 return [2 /*return*/, client.Items];

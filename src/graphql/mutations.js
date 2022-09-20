@@ -4,9 +4,12 @@
 
 export const addTodo = /* GraphQL */ `
   mutation AddTodo($todo: TodoInput) {
-    addTodo(todo: $todo)
+    addTodo(todo: $todo) {
+      statuscode
+    }
   }
-`;export const createTodo = /* GraphQL */ `
+`;
+export const createTodo = /* GraphQL */ `
   mutation CreateTodo(
     $input: CreateTodoInput!
     $condition: ModelTodoConditionInput

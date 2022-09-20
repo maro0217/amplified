@@ -7,7 +7,7 @@
 Amplify Params - DO NOT EDIT */
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand, PutCommandInput, PutCommandOutput } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand, PutCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { AppSyncResolverEvent } from "aws-lambda";
 
 type Todo = {
@@ -18,26 +18,32 @@ type Todo = {
   }
 }
 
-const docClient = new DynamoDBClient({
+// const marshallOptions = {
+//   convertClassInstanceToMap: true
+// }
+
+const dbClient = new DynamoDBClient({
   region: process.env.REGION
 })
 
-const documentClient = DynamoDBDocumentClient.from(docClient)
+const docClient = DynamoDBDocumentClient.from(dbClient)
 
 export const handler = async (event: AppSyncResolverEvent<Todo>) => {
-  console.log(event)
-  console.log(event.arguments.todo)
-  console.log(event.arguments)
   try {
     const command = new PutCommand({
       TableName: 'Todo-g2brcplterb45clsd2ohm52rzu-dev',
       Item: {
+        id: event.id,
         name: event.arguments.todo.name,
-        description: event.arguments.todo.description
+        description: event.arguments.todo.description,
+        createdAt: event.created
       }
-    } as PutCommandInput)
-    const client: PutCommandOutput = await documentClient.send(command)
-    return client
+    })
+
+    const client: PutCommandOutput = await docClient.send(command)
+    return {
+      statuscode: client.$metadata.httpStatusCode
+    }
   } catch (err) {
     console.log(err)
   }

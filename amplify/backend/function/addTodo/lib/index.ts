@@ -36,7 +36,8 @@ export const handler = async (event: AppSyncResolverEvent<Todo>) => {
         id: event.id,
         name: event.arguments.todo.name,
         description: event.arguments.todo.description,
-        createdAt: event.created
+        createdAt: event.createdAt,
+        updatedAt: event.updatedAt
       }
     })
 
